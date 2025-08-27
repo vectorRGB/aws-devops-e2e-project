@@ -137,3 +137,23 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Terraform files and directories
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+
+# Docker artifacts
+*.log
+docker-compose.override.yml
+# Ignore Docker environment files if any
+.env.docker
+
+# AWS credential/config files (never commit these!)
+.aws/
+*.pem
+
+# IDE/editor folders (optional, common for teams)
+.vscode/
+.idea/
