@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1'
+        ECR_REPO   = '<your_ecr_repo_url>' // e.g., 123456789012.dkr.ecr.us-east-1.amazonaws.com/node-app
+        IMAGE_TAG  = 'latest'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${ECR_REPO}:${IMAGE_TAG}")
+                }
+            }
+        }
+        stage('Login to ECR') {
+            steps {
+                script {
+                    sh '''
+                    aws --version
+                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+                    '''
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${ECR_REPO}:${IMAGE_TAG}"
+                }
+            }
+        }
+    }
+}

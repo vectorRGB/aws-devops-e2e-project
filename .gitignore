@@ -143,6 +143,8 @@ vite.config.ts.timestamp-*
 *.tfstate
 *.tfstate.backup
 terraform.tfvars
+# Ignore environment-specific variable files
+env/
 
 # Docker artifacts
 *.log
