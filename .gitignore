@@ -159,3 +159,5 @@ docker-compose.override.yml
 # IDE/editor folders (optional, common for teams)
 .vscode/
 .idea/
+
+.DS_Store
